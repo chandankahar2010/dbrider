@@ -10,13 +10,16 @@ from faker import Faker
 from dbrider import DataSetConfig, DataSetHandler, JsonDataSetLoader, DatabaseExecutor, setup_db_rider
 from playhouse.postgres_ext import PostgresqlDatabase
 from dbrider.decorator import dataset
+from ..config import Config
+
+base_url = "http://127.0.0.1:9001/"
 
 DATABASE_URL = {
-    "database": "DB_rider_User",
-    "user": "postgres",
-    "password": "root123",
-    "host": "localhost",
-    "port": 5434
+    "database": Config.DB_NAME,
+    "user": Config.DB_USER,
+    "password": Config.DB_PASSWORD,
+    "host": Config.DB_HOST,
+    "port": Config.DB_PORT
 }
 peewee_db = PostgresqlDatabase(**DATABASE_URL)
 executor = DatabaseExecutor(peewee_db)
@@ -37,7 +40,7 @@ def test_signup():
         "password": "chandan123"
     }
 
-    response = client.post("http://127.0.0.1:9001/api/signup/", json=signup_data)
+    response = client.post(f"{base_url}api/signup/", json=signup_data)
 
     print('Response:', response.status_code, response.json())
 
@@ -72,7 +75,7 @@ def test_signup():
         "password": "chandan123"
     }
 
-    response = client.post("http://127.0.0.1:9001/api/signup/", json=signup_data)
+    response = client.post(f"{base_url}api/signup/", json=signup_data)
 
     print('Response:', response.status_code, response.json())
 
