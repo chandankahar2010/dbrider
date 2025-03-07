@@ -1,16 +1,14 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 import os
-from dotenv import load_dotenv
 from sqlalchemy.orm import sessionmaker
+from .config import Config
 
-load_dotenv()
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5434")
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "root123")
-DB_NAME = os.getenv("DB_NAME", "DB_rider_User")
+DB_HOST = Config.DB_HOST
+DB_PORT = Config.DB_PORT
+DB_USER = Config.DB_USER
+DB_PASSWORD = Config.DB_PASSWORD
+DB_NAME = Config.DB_NAME
 DATABASE_URL = f"postgresql+psycopg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 
